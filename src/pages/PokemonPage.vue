@@ -76,7 +76,7 @@ export default {
     font-family: 'Pokemon Solid', sans-serif;
     color: gold;
     position: absolute;
-    right: 32%;
+    right: 37%;
     user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
