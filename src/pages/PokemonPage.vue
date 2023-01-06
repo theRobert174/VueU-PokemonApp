@@ -9,7 +9,7 @@
     <PokemonOptions :pokemons="pokemonArr" @selection="checkAnswer"/>
 
     <template v-if="showAnswer" >
-      <h2 class="fade-in">{{message}}</h2>
+      <h2 class="fade-in" :class="{'glow-correct' : isCorrect, 'glow-incorrect' : !isCorrect}">{{message}}</h2>
       <button @click="newGame">Nuevo Juego</button>
     </template>
   </div>
@@ -33,7 +33,8 @@ export default {
         pokemon: null,
         showPokemon: false,
         message: '',
-        showAnswer: false
+        showAnswer: false,
+        isCorrect: false
       }
     },
     methods:{
@@ -50,11 +51,14 @@ export default {
           this.showAnswer = true
 
         if(selectedId === this.pokemon.id){
+          this.isCorrect = true
           this.message = `Correcto, ${this.pokemon.name}`
         }
         else {
+          this.isCorrect = false
           this.message = `Oops, era ${this.pokemon.name}`
         }
+        //console.log('HolaMundo',this.showPokemon)
       },
 
       async newGame(){
@@ -86,5 +90,37 @@ export default {
   .back-title{
     font-family: 'Pokemon Hollow', sans-serif;
     color: blue;
+  }
+
+  .glow-correct {
+  text-align: center;
+  -webkit-animation: glow-correct 1s ease-in-out infinite alternate;
+  -moz-animation: glow-correct 1s ease-in-out infinite alternate;
+  animation: glow-correct 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow-correct {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #2ee600, 0 0 40px #2ee600, 0 0 50px #2ee600, 0 0 60px #2ee600, 0 0 70px #2ee600;
+    }
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #7cff4d, 0 0 40px #7cff4d, 0 0 50px #7cff4d, 0 0 60px #7cff4d, 0 0 70px #7cff4d, 0 0 80px #7cff4d;
+    }
+  }
+
+  .glow-incorrect {
+  text-align: center;
+  -webkit-animation: glow-incorrect 1s ease-in-out infinite alternate;
+  -moz-animation: glow-incorrect 1s ease-in-out infinite alternate;
+  animation: glow-incorrect 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow-incorrect {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60000, 0 0 40px #e60000, 0 0 50px #e60000, 0 0 60px #e60000, 0 0 70px #e60000;
+    }
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #ff4d4d, 0 0 40px #ff4d4d, 0 0 50px #ff4d4d, 0 0 60px #ff4d4d, 0 0 70px #ff4d4d, 0 0 80px #ff4d4d;
+    }
   }
 </style>
